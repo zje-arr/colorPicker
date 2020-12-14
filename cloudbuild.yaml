@@ -1,5 +1,5 @@
 steps:
-- name: 'node'
+- name: 'node:$_NODE_VER'
   entrypoint: 'npm'
   args: ['install']
   id: 'nodeNpmInstall'
