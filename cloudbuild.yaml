@@ -33,7 +33,7 @@ steps:
   volumes:
   - name: 'vol1'
     path: '/myawesomevolume'
-  args: ['tar', '-czvf', 'artifacts.tar.gz', '.', '/myawesomevolume/buildlog.log']
+  args: ['tar', '-czvf', 'artifacts.tar.gz', 'cloudBuildExperimetNode', '/myawesomevolume/buildlog.log']
   waitFor: ['fetch-build-log']
   id: 'create-artifacts-zip'
 images:
