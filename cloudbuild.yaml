@@ -29,7 +29,7 @@ steps:
   args: ['-c', 'gcloud builds log $BUILD_ID > /myawesomevolume/buildlog.log']
   id: 'fetch-build-log'
   waitFor: ['deploy-to-cloud-run']
-  - name: 'bash'
+- name: 'bash'
   volumes:
   - name: 'vol1'
     path: '/myawesomevolume'
@@ -40,7 +40,10 @@ images:
 - 'gcr.io/$PROJECT_ID/myapp:latest'
 - 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID'
 - 'gcr.io/$PROJECT_ID/myapp:$COMMIT_SHA'
-
+artifacts:
+  objects:
+    location: 'gs://devops-$PROJECT_ID/$BUILD_ID'
+    paths: ['artifacts.tar.gz']
 # steps:
 # - name: 'node:$_NODE_VER'
 #   entrypoint: 'npm'
