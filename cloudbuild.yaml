@@ -20,7 +20,15 @@ steps:
   - 'managed'
   - '--allow-unauthenticated'
   id: 'deploy-to-cloud-run'
-  waitFor: ['push-image-to-container-registry'] 
+  waitFor: ['push-image-to-container-registry']
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+  volumes:
+  - name: 'vol1'
+    path: '/myawesomevolume'
+  entrypoint: '/bin/bash'
+  args: ['-c', 'gcloud builds log $BUILD_ID > /myawesomevolume/buildlog.log']
+  waitFor: ['deploy-to-cloud-run']
+  id: 'fetch-build-log'
 images:
 - 'gcr.io/$PROJECT_ID/myapp:latest'
 - 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID'
