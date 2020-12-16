@@ -1,10 +1,3 @@
-# steps:
-# - name: 'node:$_NODE_VER'
-#   entrypoint: 'npm'
-#   args: ['install']
-#   id: 'nodeNpmInstall'
-
-
 steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/$PROJECT_ID/myapp:latest', '-t', 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID', '.']
@@ -14,3 +7,9 @@ images:
 - 'gcr.io/$PROJECT_ID/myapp:latest'
 - 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID'
 #- 'gcr.io/$PROJECT_ID/myapp:$COMMIT_SHA'
+
+# steps:
+# - name: 'node:$_NODE_VER'
+#   entrypoint: 'npm'
+#   args: ['install']
+#   id: 'nodeNpmInstall'
