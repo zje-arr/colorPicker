@@ -42,7 +42,7 @@ images:
 - 'gcr.io/$PROJECT_ID/myapp:$COMMIT_SHA'
 artifacts:
   objects:
-    location: 'gs://devops-$PROJECT_ID/$BUILD_ID'
+    location: 'gs://jarylbucket-$PROJECT_ID/$BUILD_ID'
     paths: ['artifacts.tar.gz']
 # steps:
 # - name: 'node:$_NODE_VER'
