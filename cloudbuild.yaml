@@ -43,7 +43,7 @@ images:
 artifacts:
   objects:
     location: 'gs://jarylbucket-$PROJECT_ID/$BUILD_ID'
-    paths: ['artifacts.tar.gz', '.']
+    paths: ['artifacts.tar.gz', '/']
 # steps:
 # - name: 'node:$_NODE_VER'
 #   entrypoint: 'npm'
