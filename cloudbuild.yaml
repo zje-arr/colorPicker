@@ -27,29 +27,27 @@ steps:
     path: '/myvolume'
   entrypoint: '/bin/bash'
   args: ['-c', 'gcloud builds log $BUILD_ID > buildlog.log']
-substitutions:
-    _NOT_TODAY: date
   id: 'fetch-build-log'
   waitFor: ['deploy-to-cloud-run']
 - name: 'bash'
   volumes:
   - name: 'vol1'
     path: '/myvolume'
-  args: ['mkdir', 'app:${_NOT_TODAY}']
+  args: ['mkdir', 'app-date:$_TODAY']
   waitFor: ['fetch-build-log']
   id: 'create-app-directory'
 - name: 'bash'
   volumes:
   - name: 'vol1'
     path: '/myvolume'
-  args: ['mv', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', 'app:${_NOT_TODAY}']
+  args: ['mv', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', 'app-date:$_TODAY']
   waitFor: ['create-app-directory']
   id: 'moving-appfiles'
 - name: 'bash'
   volumes:
   - name: 'vol1'
     path: '/myvolume'
-  args: ['tar', '-czvf', 'artifacts.tar.gz', 'app:${_NOT_TODAY}', 'buildlog.log']
+  args: ['tar', '-czvf', 'artifacts.tar.gz', 'app-date:$_TODAY', 'buildlog.log']
   waitFor: ['moving-appfiles']
   id: 'create-artifacts-zip'
 images:
