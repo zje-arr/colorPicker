@@ -27,14 +27,14 @@ steps:
     path: '/myvolume'
   entrypoint: '/bin/bash'
   args: ['-c', 'gcloud builds log $BUILD_ID > buildlog.log']
+substitutions:
+    _NOT_TODAY: date
   id: 'fetch-build-log'
   waitFor: ['deploy-to-cloud-run']
 - name: 'bash'
   volumes:
   - name: 'vol1'
     path: '/myvolume'
-substitutions:
-    _NOT_TODAY: date
   args: ['mkdir', 'app:${_NOT_TODAY}']
   waitFor: ['fetch-build-log']
   id: 'create-app-directory'
