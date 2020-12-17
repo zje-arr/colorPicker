@@ -31,7 +31,7 @@ steps:
   - name: 'vol1'
     path: '/myawesomevolume'
   entrypoint: '/bin/bash'
-  args: ['-c', 'gcloud builds log $BUILD_ID > buildlog.log']
+  args: ['-c', 'gcloud builds log $BUILD_ID > /myawesomevolume/buildlog.log']
   id: 'fetch-build-log'
   waitFor: ['deploy-to-cloud-run']
 - name: 'bash'
@@ -40,13 +40,13 @@ steps:
     path: '/myawesomevolume'
   args: ['mkdir', 'logfile']
   waitFor: ['fetch-build-log']
-  id: 'create-logfolder'
-  - name: 'bash'
+  id: 'create-logfile'
+- name: 'bash'
   volumes:
   - name: 'vol1'
     path: '/myawesomevolume'
-  args: ['tar', '-czvf', 'artifacts.tar.gz', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', logfile]
-  waitFor: ['create-logfolder']
+  args: ['tar', '-czvf', 'artifacts.tar.gz', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', '/myawesomevolume/buildlog.log']
+  waitFor: ['create-logfile']
   id: 'create-artifacts-zip'
 images:
 - 'gcr.io/$PROJECT_ID/myapp:latest'
