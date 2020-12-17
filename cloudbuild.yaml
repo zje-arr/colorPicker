@@ -40,14 +40,14 @@ steps:
   volumes:
   - name: 'vol1'
     path: '/myawesomevolume'
-  args: ['mv', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', 'app']
+  args: ['mv', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', 'cloudbuild.yaml', 'app']
   waitFor: ['create-app-directory']
   id: 'moving-appfiles'
 - name: 'bash'
   volumes:
   - name: 'vol1'
     path: '/myawesomevolume'
-  args: ['tar', '-czvf', 'artifacts.tar.gz', '/myawesomevolume/buildlog.log', 'app']
+  args: ['tar', '-czvf', 'artifacts.tar.gz', '/buildlog.log', 'app']
   waitFor: ['moving-appfiles']
   id: 'create-artifacts-zip'
 images:
