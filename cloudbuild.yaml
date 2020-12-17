@@ -30,26 +30,24 @@ steps:
   id: 'fetch-build-log'
   waitFor: ['deploy-to-cloud-run']
 - name: 'bash'
-substitutions:
-  _DATE_TODAY: date
   volumes:
   - name: 'vol1'
     path: '/myvolume'
-  args: ['mkdir', 'app:${_DATE_TODAY}']
+  args: ['mkdir', 'app:$_TODAY']
   waitFor: ['fetch-build-log']
   id: 'create-app-directory'
 - name: 'bash'
   volumes:
   - name: 'vol1'
     path: '/myvolume'
-  args: ['mv', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', 'app:${_DATE_TODAY}']
+  args: ['mv', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', 'app:$_TODAY']
   waitFor: ['create-app-directory']
   id: 'moving-appfiles'
 - name: 'bash'
   volumes:
   - name: 'vol1'
     path: '/myvolume'
-  args: ['tar', '-czvf', 'artifacts.tar.gz', 'app:${_DATE_TODAY}', 'buildlog.log']
+  args: ['tar', '-czvf', 'artifacts.tar.gz', 'app:$_TODAY', 'buildlog.log']
   waitFor: ['moving-appfiles']
   id: 'create-artifacts-zip'
 images:
