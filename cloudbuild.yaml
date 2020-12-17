@@ -38,7 +38,7 @@ steps:
   volumes:
   - name: 'vol1'
     path: '/myawesomevolume'
-  args: ['mkdir', 'logfile', 'mv', 'buildlog.log', 'logfile']
+  args: ['mkdir', 'logfile']
   waitFor: ['fetch-build-log']
   id: 'create-logfolder'
   - name: 'bash'
