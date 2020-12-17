@@ -45,8 +45,15 @@ steps:
   volumes:
   - name: 'vol1'
     path: '/myawesomevolume'
-  args: ['tar', '-czvf', 'artifacts.tar.gz', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', '/myawesomevolume/buildlog.log']
+  args: ['mv', 'buildlog.log', 'logfile']
   waitFor: ['create-logfile']
+  id: 'moving-build-logfile'
+- name: 'bash'
+  volumes:
+  - name: 'vol1'
+    path: '/myawesomevolume'
+  args: ['tar', '-czvf', 'artifacts.tar.gz', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', 'logfile']
+  waitFor: ['moving-build-logfile']
   id: 'create-artifacts-zip'
 images:
 - 'gcr.io/$PROJECT_ID/myapp:latest'
