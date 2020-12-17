@@ -47,7 +47,7 @@ steps:
   volumes:
   - name: 'vol1'
     path: '/myawesomevolume'
-  args: ['tar', '-czvf', 'artifacts.tar.gz', 'app', 'myawesomevolume/buildlog.log']
+  args: ['tar', '-czvf', 'artifacts.tar.gz', 'app', '/myawesomevolume/buildlog.log']
   waitFor: ['moving-appfiles']
   id: 'create-artifacts-zip'
 images:
