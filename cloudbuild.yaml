@@ -1,3 +1,8 @@
+# steps:
+# - name: 'node:$_NODE_VER'
+#   entrypoint: 'npm'
+#   args: ['install']
+#   id: 'nodeNpmInstall'
 steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/$PROJECT_ID/myapp:latest', '-t', 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID', '-t', 'gcr.io/$PROJECT_ID/myapp:$COMMIT_SHA', '.']
@@ -33,14 +38,15 @@ steps:
   volumes:
   - name: 'vol1'
     path: '/myawesomevolume'
-  args: 
-  - 'mkdir' 
-  - 'logfile'
-  - 'mv'
-  - 'buildlog.log'
-  - 'logfile'
-  - 'tar', '-czvf', 'artifacts.tar.gz', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', 'logfile'
+  args: ['mkdir', 'logfile', 'mv', 'buildlog.log', 'logfile']
   waitFor: ['fetch-build-log']
+  id: 'create-logfolder'
+  - name: 'bash'
+  volumes:
+  - name: 'vol1'
+    path: '/myawesomevolume'
+  args: ['tar', '-czvf', 'artifacts.tar.gz', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', logfile]
+  waitFor: ['create-logfolder']
   id: 'create-artifacts-zip'
 images:
 - 'gcr.io/$PROJECT_ID/myapp:latest'
@@ -50,8 +56,3 @@ artifacts:
   objects:
     location: 'gs://jarylbucket-$PROJECT_ID/$BUILD_ID'
     paths: ['artifacts.tar.gz']
-# steps:
-# - name: 'node:$_NODE_VER'
-#   entrypoint: 'npm'
-#   args: ['install']
-#   id: 'nodeNpmInstall'
