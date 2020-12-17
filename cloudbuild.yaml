@@ -38,7 +38,7 @@ steps:
   volumes:
   - name: 'vol1'
     path: '/myawesomevolume'
-  args: ['tar', '-czvf', 'artifacts.tar.gz', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', '/buildlog.log']
+  args: ['tar', '-czvf', 'artifacts.tar.gz', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', 'buildlog.log']
   waitFor: ['fetch-build-log']
   id: 'create-artifacts-zip'
 images:
