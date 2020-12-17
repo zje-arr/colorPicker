@@ -33,7 +33,7 @@ steps:
   volumes:
   - name: 'vol1'
     path: '/myvolume'
-  args: ['mkdir', 'app-$_TODAY']
+  args: ['mkdir', 'app']
   waitFor: ['fetch-build-log']
   id: 'create-app-directory'
 - name: 'bash'
