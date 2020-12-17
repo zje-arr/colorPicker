@@ -33,7 +33,7 @@ steps:
   volumes:
   - name: 'vol1'
     path: '/myvolume'
-  args: ['tar', '-czvf', 'artifacts.tar.gz', 'buildlog.log', 'myapp/public', 'myapp/views', ]
+  args: ['tar', '-czvf', 'artifacts.tar.gz', 'buildlog.log', 'myvolume/public', 'myvolume/views', ]
   waitFor: ['fetch-build-log']
   id: 'create-artifacts-zip'
 images:
