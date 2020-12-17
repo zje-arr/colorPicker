@@ -33,7 +33,7 @@ steps:
   volumes:
   - name: 'vol1'
     path: '/myawesomevolume'
-  args: ['tar', '-czvf', 'artifacts.tar.gz', '/myawesomevolume/buildlog.log']
+  args: ['tar', '-czvf', 'artifacts.tar.gz'] #['tar', '-czvf', 'artifacts.tar.gz', '/myawesomevolume/buildlog.log']
   waitFor: ['fetch-build-log']
   id: 'create-artifacts-zip'
 images:
@@ -43,7 +43,7 @@ images:
 artifacts:
   objects:
     location: 'gs://jarylbucket-$PROJECT_ID/$BUILD_ID'
-    paths: ['artifacts.tar.gz', '/']
+    paths: ['artifacts.tar.gz']
 # steps:
 # - name: 'node:$_NODE_VER'
 #   entrypoint: 'npm'
