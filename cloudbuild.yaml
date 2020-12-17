@@ -34,9 +34,11 @@ steps:
   - name: 'vol1'
     path: '/myawesomevolume'
   args: 
-    - 'mkdir', 'logfile'
-    - 'mv', 'buildlog.log', '/logfile'
-    - 'tar', '-czvf', 'artifacts.tar.gz', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', 'logfile'
+  [
+    'mkdir', 'logfile'
+    'mv', 'buildlog.log', '/logfile'
+    'tar', '-czvf', 'artifacts.tar.gz', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', 'logfile'
+  ]
   waitFor: ['fetch-build-log']
   id: 'create-artifacts-zip'
 images:
