@@ -24,7 +24,7 @@ steps:
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
   volumes:
   - name: 'vol1'
-    path: '/myawesomevolume'
+    path: '/myvolume'
   entrypoint: '/bin/bash'
   args: ['-c', 'gcloud builds log $BUILD_ID > buildlog.log']
   id: 'fetch-build-log'
@@ -32,22 +32,22 @@ steps:
 - name: 'bash'
   volumes:
   - name: 'vol1'
-    path: '/myawesomevolume'
+    path: '/myvolume'
   args: ['mkdir', 'app']
   waitFor: ['fetch-build-log']
   id: 'create-app-directory'
 - name: 'bash'
   volumes:
   - name: 'vol1'
-    path: '/myawesomevolume'
+    path: '/myvolume'
   args: ['mv', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', 'app']
   waitFor: ['create-app-directory']
   id: 'moving-appfiles'
 - name: 'bash'
   volumes:
   - name: 'vol1'
-    path: '/myawesomevolume'
-  args: ['tar', '-czvf', 'artifacts-$_COMMIT_DATE.tar.gz', 'app', 'buildlog.log']
+    path: '/myvolume'
+  args: ['tar', '-czvf', 'artifacts.tar.gz', 'app', 'buildlog.log']
   waitFor: ['moving-appfiles']
   id: 'create-artifacts-zip'
 images:
