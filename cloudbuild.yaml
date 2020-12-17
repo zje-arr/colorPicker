@@ -40,14 +40,14 @@ steps:
   volumes:
   - name: 'vol1'
     path: '/myvolume'
-  args: ['mv', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', 'app']
+  args: ['mv', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', 'app-commit-date:$_COMMIT_DATE']
   waitFor: ['create-app-directory']
   id: 'moving-appfiles'
 - name: 'bash'
   volumes:
   - name: 'vol1'
     path: '/myvolume'
-  args: ['tar', '-czvf', 'artifacts.tar.gz', 'app', 'buildlog.log']
+  args: ['tar', '-czvf', 'artifacts.tar.gz', 'app-commit-date:$_COMMIT_DATE', 'buildlog.log']
   waitFor: ['moving-appfiles']
   id: 'create-artifacts-zip'
 images:
