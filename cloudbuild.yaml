@@ -34,8 +34,8 @@ steps:
   - name: 'vol1'
     path: '/myvolume'
   args: ['mkdir', 'app:$_DATE_TODAY']
-  substitutions:
-    _DATE_TODAY: date
+substitutions:
+  _DATE_TODAY: date
   waitFor: ['fetch-build-log']
   id: 'create-app-directory'
 - name: 'bash'
