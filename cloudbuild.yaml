@@ -33,21 +33,21 @@ steps:
   volumes:
   - name: 'vol1'
     path: '/myvolume'
-  args: ['mkdir', 'app-date:'-c date]
+  args: ['mkdir', 'app-date:', '-c' date]
   waitFor: ['fetch-build-log']
   id: 'create-app-directory'
 - name: 'bash'
   volumes:
   - name: 'vol1'
     path: '/myvolume'
-  args: ['mv', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', 'app-date:'-c date]
+  args: ['mv', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', 'app-date:', '-c' date]
   waitFor: ['create-app-directory']
   id: 'moving-appfiles'
 - name: 'bash'
   volumes:
   - name: 'vol1'
     path: '/myvolume'
-  args: ['tar', '-czvf', 'artifacts.tar.gz', 'app-date:'-c date, 'buildlog.log']
+  args: ['tar', '-czvf', 'artifacts.tar.gz', 'app-date:', '-c' date, 'buildlog.log']
   waitFor: ['moving-appfiles']
   id: 'create-artifacts-zip'
 images:
