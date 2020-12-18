@@ -23,7 +23,7 @@ steps:
   waitFor: ['push-image-to-container-registry']
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
   volumes:
-  - name: $(_VOL_NAME)
+  - name: 'vol1'
     path: '/myvolume'
   entrypoint: '/bin/bash'
   args: ['-c', 'gcloud builds log $BUILD_ID > buildlog.log']
@@ -51,7 +51,7 @@ steps:
   waitFor: ['moving-appfiles']
   id: 'create-artifacts-zip'
 substitutions: 
-    _VOL_NAME: vol1
+    _VOL_NAME: 'vol1'
 images:
 - 'gcr.io/$PROJECT_ID/myapp:latest'
 - 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID'
@@ -60,9 +60,6 @@ artifacts:
   objects:
     location: 'gs://jarylbucket-$PROJECT_ID/$BUILD_ID'
     paths: ['artifacts.tar.gz']
-   
-
-
 # steps:
 # - name: 'node:$_NODE_VER'
 #   entrypoint: 'npm'
