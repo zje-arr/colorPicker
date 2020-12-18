@@ -51,7 +51,7 @@ steps:
   waitFor: ['moving-appfiles']
   id: 'create-artifacts-zip'
 substitutions: 
-    _VOL_NAME: vol1
+    _VOL_NAME: vol-1
 images:
 - 'gcr.io/$PROJECT_ID/myapp:latest'
 - 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID'
