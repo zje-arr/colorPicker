@@ -25,7 +25,7 @@ steps:
   volumes:
   - name: 'vol1'
     path: '/myvolume'
-  entrypoint: '/bin/bash'
+  entrypoint: '/bin/${_SHELL}'
   args: ['-c', 'gcloud builds log $BUILD_ID > buildlog.log']
   id: 'fetch-build-log'
   waitFor: ['deploy-to-cloud-run']
@@ -51,7 +51,7 @@ steps:
   waitFor: ['moving-appfiles']
   id: 'create-artifacts-zip'
 substitutions: 
-    _VOL_NAME: 'vol1'
+    _SHELL: 'bash'
 images:
 - 'gcr.io/$PROJECT_ID/myapp:latest'
 - 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID'
