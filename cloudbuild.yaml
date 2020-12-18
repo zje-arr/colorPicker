@@ -23,13 +23,13 @@ steps:
   waitFor: ['push-image-to-container-registry']
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
   volumes:
-  - name: 'vol1'
-    path: '/myvolume'
-  entrypoint: '/bin/bash'
+  - name: $_VOL_NAME
+    path: $_PATH
+  entrypoint: '/bin/$_CONSOLE'
   args: ['-c', 'gcloud builds log $BUILD_ID > buildlog.log']
   id: 'fetch-build-log'
   waitFor: ['deploy-to-cloud-run']
-- name: 'bash'
+- name: '$_CONSOLE'
   volumes:
   - name: 'vol1'
     path: '/myvolume'
@@ -58,6 +58,10 @@ artifacts:
   objects:
     location: 'gs://jarylbucket-$PROJECT_ID/$BUILD_ID'
     paths: ['artifacts.tar.gz']
+substitutions: 
+    _VOL_NAME: vol1
+    _PATH: /myvolume
+    _CONSOLE: bash
 
 
 # steps:
