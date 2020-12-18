@@ -53,7 +53,7 @@ steps:
 substitutions: 
     _SHELL: 'bash'
     _VOLUME_PATH: 'myvolume'
-    _NAME_VOLUME: 'personal-partition'
+    _NAME_VOLUME: 'personalPartition'
 images:
 - 'gcr.io/$PROJECT_ID/myapp:latest'
 - 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID'
