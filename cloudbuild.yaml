@@ -45,7 +45,7 @@ steps:
   id: 'moving-appfiles'
 - name: $_SHELL
   volumes:
-  - name: _VOLUME_NAME
+  - name: 'vol1'
     path: /${_VOLUME_PATH}
   args: ['tar', '-czvf', 'artifacts.tar.gz', 'app', 'buildlog.log']
   waitFor: ['moving-appfiles']
