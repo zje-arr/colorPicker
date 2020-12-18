@@ -23,7 +23,7 @@ steps:
   waitFor: ['push-image-to-container-registry']
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
   volumes:
-  - name: $_VOL_NAME
+  - name: $$_VOL_NAME
     path: '/myvolume'
   entrypoint: '/bin/bash'
   args: ['-c', 'gcloud builds log $BUILD_ID > buildlog.log']
