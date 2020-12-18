@@ -29,21 +29,21 @@ steps:
   args: ['-c', 'gcloud builds log $BUILD_ID > buildlog.log']
   id: 'fetch-build-log'
   waitFor: ['deploy-to-cloud-run']
-- name: 'bash'
+- name: $_SHELL
   volumes:
   - name: 'vol1'
     path: '/myvolume'
   args: ['mkdir', 'app']
   waitFor: ['fetch-build-log']
   id: 'create-app-directory'
-- name: 'bash'
+- name: $_SHELL
   volumes:
   - name: 'vol1'
     path: '/myvolume'
   args: ['mv', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', 'app']
   waitFor: ['create-app-directory']
   id: 'moving-appfiles'
-- name: 'bash'
+- name: $_SHELL
   volumes:
   - name: 'vol1'
     path: '/myvolume'
