@@ -45,7 +45,7 @@ steps:
   id: 'moving-appfiles'
 - name: $_SHELL
   volumes:
-  - name: 'vol1'
+  - name: $_NAME_VOLUME
     path: /${_VOLUME_PATH}
   args: ['tar', '-czvf', 'artifacts.tar.gz', 'app', 'buildlog.log']
   waitFor: ['moving-appfiles']
@@ -53,6 +53,7 @@ steps:
 substitutions: 
     _SHELL: 'bash'
     _VOLUME_PATH: 'myvolume'
+    _NAME_VOLUME: 'personal-partition'
 images:
 - 'gcr.io/$PROJECT_ID/myapp:latest'
 - 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID'
