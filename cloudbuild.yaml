@@ -59,7 +59,7 @@ artifacts:
     location: 'gs://jarylbucket-$PROJECT_ID/$BUILD_ID'
     paths: ['artifacts.tar.gz']
 substitutions: 
-    _VOL_NAME: vol1
+    _VOL_NAME: 'vol1'
     _PATH: /myvolume
     _CONSOLE: bash
 
