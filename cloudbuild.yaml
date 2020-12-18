@@ -23,8 +23,8 @@ steps:
   waitFor: ['push-image-to-container-registry']
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
   volumes:
-  - name: $_VOLUME_NAME
-    path: '/myvolume'
+  - name: 'vol1'
+    path: $_VOLUME_PATH
   entrypoint: '/bin/${_SHELL}'
   args: ['-c', 'gcloud builds log $BUILD_ID > buildlog.log']
   id: 'fetch-build-log'
@@ -32,27 +32,27 @@ steps:
 - name: $_SHELL
   volumes:
   - name: 'vol1'
-    path: '/myvolume'
+    path: $_VOLUME_PATH
   args: ['mkdir', 'app']
   waitFor: ['fetch-build-log']
   id: 'create-app-directory'
 - name: $_SHELL
   volumes:
   - name: 'vol1'
-    path: '/myvolume'
+    path: $_VOLUME_PATH
   args: ['mv', 'public', 'views', 'app.js', 'package.json', 'Dockerfile', 'app']
   waitFor: ['create-app-directory']
   id: 'moving-appfiles'
 - name: $_SHELL
   volumes:
   - name: 'vol1'
-    path: '/myvolume'
+    path: $_VOLUME_PATH
   args: ['tar', '-czvf', 'artifacts.tar.gz', 'app', 'buildlog.log']
   waitFor: ['moving-appfiles']
   id: 'create-artifacts-zip'
 substitutions: 
     _SHELL: 'bash'
-    _VOLUME_NAME: 'myVol1'
+    _VOLUME_PATH: '/myvolume'
 images:
 - 'gcr.io/$PROJECT_ID/myapp:latest'
 - 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID'
