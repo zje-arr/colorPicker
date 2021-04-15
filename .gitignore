@@ -1,3 +1,6 @@
 copiesFromYT.yaml
 myNotes.yaml
 *.envrc
+.terraform
+.terraform.lock.hcl
+terraform.tfstate
