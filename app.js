@@ -16,5 +16,3 @@ app.get('/', (req, res) => {
 // 	port = 8383;
 // 	console.log(`YelpCamp running at http://${hostname}:${port}/`);
 // });
-
-
