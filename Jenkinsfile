@@ -1,9 +1,12 @@
 pipeline {
-    agent { dockerfile true }
+    agent { docker
+     image 'node:14-slim'
+     args '-p 8081:3000'
+    }
     stages {
         stage('Build') { 
             steps {
-                sh 'docker build -t gcr.io/apps/myapp:latest  .'
+                sh 'npm install'
             }
         }
         stage('Test') { 
