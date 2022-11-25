@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Deliver') { 
             steps {
-                sh 'echo "no Deployment"'
+                sh 'npm start'
             }
         }
     }
