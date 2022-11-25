@@ -1,7 +1,9 @@
 pipeline {
-    agent { docker
-     image 'node:14-slim'
-     args '-p 8081:3000'
+    agent { 
+        docker {
+            image 'node:14-slim'
+            args '-p 8081:3000'
+        }
     }
     stages {
         stage('Build') { 
