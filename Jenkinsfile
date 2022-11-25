@@ -1,11 +1,14 @@
 pipeline {
     agent { 
-        dockerfile { true }
+        docker {
+            image 'node:14-slim'
+            args '-p 8081:3000'
+        }
     }
     stages {
         stage('Build') { 
             steps {
-                sh 'docker build -t myapp .'
+                sh 'npm install all'
             }
         }
         stage('Test') { 
